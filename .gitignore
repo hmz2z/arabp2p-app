@@ -1,0 +1,35 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dependencies
+node_modules/
+dist/
+dist-tauri/
+
+# Rust/Tauri
+src-tauri/target/
+src-tauri/gen/
+src-tauri/Cargo.lock
+
+# App Data (Local Testing)
+scripts.json
+config.json
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build Artifacts
+*.exe
+*.msi
+*.deb
+*.rpm
+*.app
+*.dmg
+*.zip
+*.tar.gz

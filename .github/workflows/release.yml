@@ -1,0 +1,86 @@
+name: Release ArabP2P
+
+on:
+  push:
+    tags:
+      - 'v*'          # يشتغل عند push tag مثل v0.1.0
+  workflow_dispatch:  # تشغيل يدوي من GitHub UI
+
+permissions:
+  contents: write   # مهم جداً لرفع الـ Release
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+
+      # 1. سحب الكود
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. إعداد Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      # 3. إعداد Rust
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      # 4. Cache لـ Rust (يسرّع البناء كثيراً)
+      - name: Cache Rust build
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      # 5. تثبيت dependencies
+      - name: Install frontend dependencies
+        run: npm install
+
+      # 6. بناء التطبيق وإنشاء الـ Release
+      - name: Build Tauri app & Release
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: 'ArabP2P v__VERSION__'
+          releaseBody: |
+            ## 🚀 ArabP2P Torrent Manager - New Release
+
+            ### 📥 تحميل التطبيق:
+
+            | الملف | النوع | الاستخدام |
+            |-------|-------|-----------|
+            | `ArabP2P Torrent Manager_*_x64-setup.exe` | NSIS Installer | تثبيت عادي |
+            | `ArabP2P Torrent Manager_*_x64_en-US.msi` | MSI Installer | تثبيت عبر Windows Installer |
+            | `app-portable.exe` | Portable | بدون تثبيت |
+
+            ### ✅ المتطلبات:
+            - Windows 10/11 (64-bit)
+            - لا يحتاج .NET أو أي runtime إضافي
+          releaseDraft: false
+          prerelease: false
+          includeUpdaterJson: false
+          args: --target x86_64-pc-windows-msvc
+
+      # 7. نسخ app.exe وإعادة تسميته إلى app-portable.exe
+      - name: Rename portable exe
+        run: |
+          Copy-Item `
+            "src-tauri/target/x86_64-pc-windows-msvc/release/app.exe" `
+            "app-portable.exe"
+        shell: pwsh
+
+      # 8. رفع الـ portable.exe إلى نفس الـ Release
+      - name: Upload portable exe to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: app-portable.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,151 @@
+.settings-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow-y: auto;
+}
+
+.settings-container h1 {
+  margin: 0 0 20px 0;
+  font-size: 28px;
+  color: #4ade80;
+}
+
+.settings-container h2 {
+  margin: 0 0 15px 0;
+  font-size: 20px;
+  color: #4ade80;
+}
+
+.settings-section {
+  background: #2a2a2a;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.setting-item:last-child {
+  margin-bottom: 0;
+}
+
+.setting-item label {
+  min-width: 150px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.setting-item input {
+  flex: 1;
+  padding: 10px 12px;
+  background: #3a3a3a;
+  border: 1px solid #4a4a4a;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.setting-item input:focus {
+  outline: none;
+  border-color: #4ade80;
+}
+
+.setting-item button {
+  padding: 10px 20px;
+  background: #4ade80;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.setting-item button:hover {
+  background: #3bc976;
+}
+
+.setting-item .count {
+  color: #4ade80;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.message {
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.message.success {
+  background: #3bc976;
+  color: #1a1a1a;
+}
+
+.message.error {
+  background: #ef4444;
+  color: #fff;
+}
+
+.torrents-list {
+  background: #3a3a3a;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.torrents-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.torrents-list li {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #4a4a4a;
+}
+
+.torrents-list li:last-child {
+  border-bottom: none;
+}
+
+.torrent-number {
+  display: inline-block;
+  min-width: 40px;
+  padding: 4px 8px;
+  background: #4ade80;
+  color: #1a1a1a;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.torrent-name {
+  flex: 1;
+  color: #fff;
+  font-size: 14px;
+}
+
+.no-torrents {
+  color: #888;
+  font-style: italic;
+  margin: 0;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 18px;
+  color: #4ade80;
+}
